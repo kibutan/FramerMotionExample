@@ -1,5 +1,5 @@
 import { Box, color, Container } from "@chakra-ui/react";
-import { motion, Toggle } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useState } from "react";
 
 type Props = {
@@ -80,6 +80,27 @@ export const DraggableBox = () => (
   </Box>
 );
 
+export const MotionValueExample = () => {
+  const x = useMotionValue(0);
+  const background = useTransform(
+    x,
+    [-100, 0, 100],
+    ["#ff008c", "#7700ff", "rgb(230, 255, 0)"]
+  );
+
+  return (
+    <motion.div style={{ background }}>
+      <motion.div
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        style={{ x }}
+      >
+        <Box width="100px" height="100px" />
+      </motion.div>
+    </motion.div>
+  );
+};
+
 export default function FramerMotionExample() {
   return (
     <Container>
@@ -97,6 +118,10 @@ export default function FramerMotionExample() {
 
       <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
         <DraggableBox />
+      </Container>
+
+      <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
+        <MotionValueExample />
       </Container>
     </Container>
   );
