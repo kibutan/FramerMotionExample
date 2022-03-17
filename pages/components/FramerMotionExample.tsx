@@ -123,6 +123,19 @@ export default function FramerMotionExample() {
       <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
         <MotionValueExample />
       </Container>
+
+      <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          duration="3"
+        >
+          <MyButton color="blue.200" />
+          <MyButton color="red.200" />
+          <MyButton color="green.200" />
+        </motion.div>
+      </Container>
     </Container>
   );
 }
