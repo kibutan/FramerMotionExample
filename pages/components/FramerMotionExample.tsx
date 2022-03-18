@@ -1,7 +1,11 @@
 import { Box, color, Container } from "@chakra-ui/react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  useViewportScroll,
+} from "framer-motion";
 import { useState } from "react";
-
 type Props = {
   color?: string;
 };
@@ -98,6 +102,17 @@ export const MotionValueExample = () => {
         <Box width="100px" height="100px" />
       </motion.div>
     </motion.div>
+  );
+};
+
+export const CircleIndicator = () => {
+  const { scrollYProgress } = useViewportScroll();
+
+  return (
+    <motion.path
+      d="M 0, 20 a 20, 20 0 1,0 40,0 a 20, 20 0 1,0 -40,0"
+      style={{ pathLength: scrollYProgress }}
+    />
   );
 };
 
