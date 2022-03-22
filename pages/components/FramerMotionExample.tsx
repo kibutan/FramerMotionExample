@@ -4,12 +4,28 @@ import {
   useMotionValue,
   useTransform,
   useViewportScroll,
+  Reorder,
 } from "framer-motion";
 import { useState } from "react";
 type Props = {
   color?: string;
 };
+import Carousels from "./Carousels";
 
+export const List = () => {
+  const [items, setItems] = useState([0, 1, 2, 3]);
+
+  return (
+    <Reorder.Group axis="y" values={items} onReorder={setItems}>
+      {items.map((item) => (
+        <Reorder.Item key={item} value={item}>
+          {item}
+          <MyButton />
+        </Reorder.Item>
+      ))}
+    </Reorder.Group>
+  );
+};
 const MyButton: React.VFC<Props> = ({ color = "white" }) => {
   return (
     <Box
@@ -122,34 +138,37 @@ export default function FramerMotionExample() {
       <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
         <ScaleOnceBox />
       </Container>
-
       <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
         <InfiniteSpinBox />
       </Container>
-
+      -
       <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
         <ClickableBOX />
       </Container>
-
       <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
         <DraggableBox />
       </Container>
-
       <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
         <MotionValueExample />
       </Container>
-
       <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          duration="3"
         >
           <MyButton color="blue.200" />
           <MyButton color="red.200" />
           <MyButton color="green.200" />
         </motion.div>
+
+        <motion.div animate={{ x: 100 }} initial={false} />
+      </Container>
+      <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
+        <List />
+      </Container>
+      <Container h="100vh" d="flex" alignItems="center" justifyContent="center">
+        <Carousels />
       </Container>
     </Container>
   );
